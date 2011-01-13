@@ -18,7 +18,21 @@ function pressKey($table, keyCode) {
   element.trigger(keypress);
 }
 
-function t() {
+beforeEach(function() {
+  this.addMatchers({
+    toBeSelectedIn: function($table) {
+      return ($table.data('selectedCell').get(0) == this.actual) &&
+        (document.activeElement == this.actual);
+    }
+  });
+});
+
+// For debugging
+function ut() {
   loadFixtures('/__root__/spec/fixtures/uniform_table.html');
   $('#uniform-table').focusgrid();
+}
+function ct() {
+  loadFixtures('/__root__/spec/fixtures/colspan_table.html');
+  $('#colspan-table').focusgrid();
 }
