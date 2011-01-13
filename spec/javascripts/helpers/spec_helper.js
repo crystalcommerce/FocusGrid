@@ -11,9 +11,10 @@ var KEYS = {
 };
 
 // Function to trigger key presses (firefox)
-function pressKey(element, keyCode) {
+function pressKey($table, keyCode) {
   var keypress = $.Event('keydown');
   keypress.which = keyCode;
+  var element = $table.data('selectedCell');
   element.trigger(keypress);
 }
 

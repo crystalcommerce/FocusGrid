@@ -22,7 +22,7 @@ describe("Focusgrid", function() {
           var secondCell = $('#input-2-1').get(0);
 
           $table.focusgrid();
-          pressKey($table.data('selectedCell'), KEYS.RIGHT_ARROW);
+          pressKey($table, KEYS.RIGHT_ARROW);
 
           expect($table.data('selectedCell').get(0)).toEqual(secondCell);
           expect(document.activeElement).toEqual(secondCell);
@@ -32,8 +32,8 @@ describe("Focusgrid", function() {
           var firstCell = $('#input-1-1').get(0);
 
           $table.focusgrid();
-          pressKey($table.data('selectedCell'), KEYS.RIGHT_ARROW);
-          pressKey($table.data('selectedCell'), KEYS.LEFT_ARROW);
+          pressKey($table, KEYS.RIGHT_ARROW);
+          pressKey($table, KEYS.LEFT_ARROW);
 
           expect($table.data('selectedCell').get(0)).toEqual(firstCell);
           expect(document.activeElement).toEqual(firstCell);
@@ -43,7 +43,7 @@ describe("Focusgrid", function() {
           var secondCell = $('#input-1-2').get(0);
 
           $table.focusgrid();
-          pressKey($table.data('selectedCell'), KEYS.DOWN_ARROW);
+          pressKey($table, KEYS.DOWN_ARROW);
 
           expect($table.data('selectedCell').get(0)).toEqual(secondCell);
           expect(document.activeElement).toEqual(secondCell);
@@ -53,8 +53,8 @@ describe("Focusgrid", function() {
           var firstCell = $('#input-1-1').get(0);
 
           $table.focusgrid();
-          pressKey($table.data('selectedCell'), KEYS.DOWN_ARROW);
-          pressKey($table.data('selectedCell'), KEYS.UP_ARROW);
+          pressKey($table, KEYS.DOWN_ARROW);
+          pressKey($table, KEYS.UP_ARROW);
 
           expect($table.data('selectedCell').get(0)).toEqual(firstCell);
           expect(document.activeElement).toEqual(firstCell);
@@ -66,6 +66,30 @@ describe("Focusgrid", function() {
           var second = parseInt($('#input-1-2').attr('tabindex'), 10);
 
           expect(second).toBeGreaterThan(first);
+        });
+
+        it("doesn't break at table boundaries (right-to-left)", function() {
+          $table.focusgrid();
+          var firstCell  = $('#input-1-1').get(0);
+          var secondCell = $('#input-2-1').get(0);
+
+          pressKey($table, KEYS.LEFT_ARROW);
+          expect($table.data('selectedCell').get(0)).toEqual(firstCell);
+
+          pressKey($table, KEYS.RIGHT_ARROW);
+          expect($table.data('selectedCell').get(0)).toEqual(secondCell);
+        });
+
+        it("doesn't break at table boundaries (up-and-down)", function() {
+          $table.focusgrid();
+          var firstCell  = $('#input-1-1').get(0);
+          var secondCell = $('#input-1-2').get(0);
+
+          pressKey($table, KEYS.UP_ARROW);
+          expect($table.data('selectedCell').get(0)).toEqual(firstCell);
+
+          pressKey($table, KEYS.DOWN_ARROW);
+          expect($table.data('selectedCell').get(0)).toEqual(secondCell);
         });
       });
     });
