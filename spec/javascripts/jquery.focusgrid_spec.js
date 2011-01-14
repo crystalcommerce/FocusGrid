@@ -150,10 +150,17 @@ describe("Focusgrid", function() {
 
     function itShouldBehaveNormally() {
       it("sets the focus to the first cell", function(){
-        var firstCell= $('#input-1-1').get(0);
+        var firstCell = $('#input-1-1').get(0);
 
         this.$table.focusgrid();
         expect(firstCell).toBeSelectedIn(this.$table);
+      });
+
+      it("sets the focus to a different cell if specified", function(){
+        var lastCell = $('#input-4-4').get(0);
+
+        this.$table.focusgrid({focus : lastCell});
+        expect(lastCell).toBeSelectedIn(this.$table);
       });
 
       describe("key bindings", function() {

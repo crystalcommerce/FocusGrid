@@ -14,7 +14,7 @@ task :clean do
   sh "rm -rf pkg"
 end
 
-"Minify focusgrid. Move it and dependencies to pkg/"
+desc "Minify focusgrid. Move it and dependencies to pkg/"
 task :build => %w[pkg/jquery.min.js pkg/jquery.focusgrid.min.js]
 
 namespace :build do
