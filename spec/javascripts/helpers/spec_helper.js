@@ -45,3 +45,7 @@ function ect() {
   loadFixtures('/__root__/spec/fixtures/empty_cell_table.html');
   $('#empty-cell-table').focusgrid({debug : true});
 }
+function et() {
+  loadFixtures('/__root__/spec/fixtures/evil_table.html');
+  $('#evil-table').focusgrid({debug : true});
+}

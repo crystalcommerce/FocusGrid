@@ -110,6 +110,44 @@ describe("Focusgrid", function() {
        });
     });
 
+    context("With a table with all the weirdness", function() {
+      beforeEach(function(){
+        loadFixtures('/__root__/spec/fixtures/evil_table.html');
+        this.$table = $('#evil-table');
+      });
+
+      itShouldBehaveNormally();
+
+      it("Honors colspans (right to left)", function(){
+        var fourthCell = $('#input-4-3').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+
+        expect(fourthCell).toBeSelectedIn(this.$table);
+      });
+
+      xit("Honors colspans (up and down)", function(){
+        var secondCell = $('#input-2-2').get(0);
+
+        this.$table.focusgrid({debug : true});
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.UP_ARROW);
+
+        expect(secondCell).toBeSelectedIn(this.$table); 
+      });
+
+      xit("Honors rowspans (right to left)", function() {});
+      xit("Honors rowspans (up and down)", function() {});
+      xit("Skips cells without inputs (left to right)", function() {});
+      xit("Skips cells without inputs (up and down)", function() {});
+    });
+
     function itShouldBehaveNormally() {
       it("sets the focus to the first cell", function(){
         var firstCell= $('#input-1-1').get(0);
