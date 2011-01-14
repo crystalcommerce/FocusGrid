@@ -18,18 +18,15 @@ describe("Focusgrid", function() {
 
       itShouldBehaveNormally();
 
-      xit("Honors colspans", function(){
-        var fourthCell = $('#input-4-2');
+      it("Honors colspans", function(){
+        var fourthCell = $('#input-4-2').get(0);
 
         this.$table.focusgrid();
         pressKey(this.$table, KEYS.RIGHT_ARROW);
         pressKey(this.$table, KEYS.RIGHT_ARROW);
         pressKey(this.$table, KEYS.DOWN_ARROW);
 
-        expect(fourthCell).toBeSelectedIn($table);
-
-        expect(this.$table.data('selectedCell').get(0)).toEqual(fourthCell);
-        expect(document.activeElement).toEqual(fourthCell);
+        expect(fourthCell).toBeSelectedIn(this.$table);
       });
     });
 

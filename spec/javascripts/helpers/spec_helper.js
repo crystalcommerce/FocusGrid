@@ -1,5 +1,6 @@
 // Add an alias to make things more like rspec
-var context = describe;
+var context  = describe;
+var xcontext = xdescribe;
 
 // Define some keycodes to make tests more readable
 var KEYS = {
@@ -15,14 +16,14 @@ function pressKey($table, keyCode) {
   var keypress = $.Event('keydown');
   keypress.which = keyCode;
   var element = $table.data('selectedCell');
-  element.trigger(keypress);
+  $(element).trigger(keypress);
 }
 
 beforeEach(function() {
   this.addMatchers({
     toBeSelectedIn: function($table) {
-      return ($table.data('selectedCell').get(0) == this.actual) &&
-        (document.activeElement == this.actual);
+      return ($table.data('selectedCell').id == this.actual.id) &&
+        (document.activeElement.id == this.actual.id);
     }
   });
 });
