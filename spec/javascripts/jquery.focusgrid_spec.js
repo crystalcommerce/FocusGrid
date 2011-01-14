@@ -81,6 +81,35 @@ describe("Focusgrid", function() {
       });
     });
 
+    context("With a table with empty cells", function() {
+      beforeEach(function(){
+        loadFixtures('/__root__/spec/fixtures/empty_cell_table.html');
+        this.$table = $('#empty-cell-table');
+      });
+
+       itShouldBehaveNormally();
+
+       it("Skips cells without inputs (left to right)", function() {
+         var thirdCell = $('#input-3-2').get(0);
+
+         this.$table.focusgrid();
+         pressKey(this.$table, KEYS.DOWN_ARROW);
+         pressKey(this.$table, KEYS.RIGHT_ARROW);
+
+         expect(thirdCell).toBeSelectedIn(this.$table);
+       });
+
+       it("Skips cells without inputs (up and down)", function() {
+         var thirdCell = $('#input-2-3').get(0);
+
+         this.$table.focusgrid();
+         pressKey(this.$table, KEYS.RIGHT_ARROW);
+         pressKey(this.$table, KEYS.DOWN_ARROW);
+
+         expect(thirdCell).toBeSelectedIn(this.$table);
+       });
+    });
+
     function itShouldBehaveNormally() {
       it("sets the focus to the first cell", function(){
         var firstCell= $('#input-1-1').get(0);

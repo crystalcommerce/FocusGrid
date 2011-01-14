@@ -41,3 +41,7 @@ function rt() {
   loadFixtures('/__root__/spec/fixtures/rowspan_table.html');
   $('#rowspan-table').focusgrid({debug : true});
 }
+function ect() {
+  loadFixtures('/__root__/spec/fixtures/empty_cell_table.html');
+  $('#empty-cell-table').focusgrid({debug : true});
+}
