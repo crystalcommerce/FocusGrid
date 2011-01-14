@@ -31,9 +31,13 @@ beforeEach(function() {
 // For debugging
 function ut() {
   loadFixtures('/__root__/spec/fixtures/uniform_table.html');
-  $('#uniform-table').focusgrid();
+  $('#uniform-table').focusgrid({debug : true});
 }
 function ct() {
   loadFixtures('/__root__/spec/fixtures/colspan_table.html');
-  $('#colspan-table').focusgrid();
+  $('#colspan-table').focusgrid({debug : true});
+}
+function rt() {
+  loadFixtures('/__root__/spec/fixtures/rowspan_table.html');
+  $('#rowspan-table').focusgrid({debug : true});
 }

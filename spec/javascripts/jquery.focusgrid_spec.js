@@ -11,14 +11,14 @@ describe("Focusgrid", function() {
     });
 
     context("With a table with colspans", function() {
-      beforeEach(function() {
+      beforeEach(function(){
         loadFixtures('/__root__/spec/fixtures/colspan_table.html');
         this.$table = $('#colspan-table');
       });
 
       itShouldBehaveNormally();
 
-      it("Honors colspans", function(){
+      it("Honors colspans (right to left)", function() {
         var fourthCell = $('#input-4-2').get(0);
 
         this.$table.focusgrid();
@@ -28,11 +28,62 @@ describe("Focusgrid", function() {
 
         expect(fourthCell).toBeSelectedIn(this.$table);
       });
+
+      it("Honors colspans (up and down)", function() {
+        var secondCell = $('#input-2-2').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.UP_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+      });
+    });
+
+    context("With a table with rowspans", function() {
+      beforeEach(function(){
+        loadFixtures('/__root__/spec/fixtures/rowspan_table.html');
+        this.$table = $('#rowspan-table');
+      });
+
+      itShouldBehaveNormally();
+
+      it("Honors rowspans (right to left)", function() {
+        var fourthCell = $('#input-1-4').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.LEFT_ARROW);
+
+        expect(fourthCell).toBeSelectedIn(this.$table);
+      });
+
+      it("Honors rowspans (up and down)", function() {
+        var secondCell = $('#input-1-2').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+
+        pressKey(this.$table, KEYS.LEFT_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.LEFT_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+      });
     });
 
     function itShouldBehaveNormally() {
       it("sets the focus to the first cell", function(){
-        var firstCell = $('#input-1-1').get(0);
+        var firstCell= $('#input-1-1').get(0);
 
         this.$table.focusgrid();
         expect(firstCell).toBeSelectedIn(this.$table);
