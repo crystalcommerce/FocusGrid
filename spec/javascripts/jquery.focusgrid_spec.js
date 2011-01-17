@@ -42,6 +42,19 @@ describe("Focusgrid", function() {
         pressKey(this.$table, KEYS.DOWN_ARROW);
         expect(secondCell).toBeSelectedIn(this.$table);
       });
+
+      it("Handles colspans on the right edge", function() {
+        var thirdCell = $('#input-3-3').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        expect(thirdCell).toBeSelectedIn(this.$table);
+      });
     });
 
     context("With a table with rowspans", function() {
@@ -215,6 +228,18 @@ describe("Focusgrid", function() {
       beforeEach(function() {
         loadFixtures('/__root__/spec/fixtures/table_with_header.html');
         this.$table = $('#table-with-header');
+      });
+
+      itShouldBehaveNormally();
+    });
+
+    context("After being cleared and rebuild", function() {
+      beforeEach(function() {
+        loadFixtures('/__root__/spec/fixtures/uniform_table.html');
+        this.$table = $('#uniform-table');
+
+        this.$table.focusgrid();
+        this.$table.clearFocusgrid();
       });
 
       itShouldBehaveNormally();
