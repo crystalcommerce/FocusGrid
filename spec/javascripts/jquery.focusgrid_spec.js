@@ -55,6 +55,14 @@ describe("Focusgrid", function() {
         pressKey(this.$table, KEYS.RIGHT_ARROW);
         expect(thirdCell).toBeSelectedIn(this.$table);
       });
+
+      it("sets the tab index as if it was in the first column", function() {
+        this.$table.focusgrid();
+
+        var tabOne = parseInt($('#input-2-1').attr('tabindex'), 10);
+        var tabTwo = parseInt($('#input-2-2').attr('tabindex'), 10);
+        expect(tabOne).toEqual(tabTwo - 1);
+      });
     });
 
     context("With a table with rowspans", function() {
