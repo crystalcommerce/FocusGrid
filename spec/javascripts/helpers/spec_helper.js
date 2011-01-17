@@ -49,3 +49,8 @@ function et() {
   loadFixtures('/__root__/spec/fixtures/evil_table.html');
   $('#evil-table').focusgrid({debug : true});
 }
+function nict() {
+  loadFixtures('/__root__/spec/fixtures/no_initial_cell_table.html');
+  $('#no-initial-cell-table').focusgrid({debug : true});
+  $('#no-initial-cell-table-expert').focusgrid({debug : true});
+}

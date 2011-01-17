@@ -148,6 +148,27 @@ describe("Focusgrid", function() {
       xit("Skips cells without inputs (up and down)", function() {});
     });
 
+    context("With a table with no starting input", function() {
+      beforeEach(function() {
+        loadFixtures('/__root__/spec/fixtures/no_initial_cell_table.html');
+      });
+
+      it("selects the first input on the first row that has one", function() {
+        this.$table = $('#no-initial-cell-table');
+        var secondCell = $('#input-2-1').get(0);
+
+        this.$table.focusgrid();
+
+        expect(secondCell).toBeSelectedIn(this.$table);
+
+        this.$table = $('#no-initial-cell-table-expert');
+        this.$table.focusgrid();
+        secondCell = $('#einput-2-2').get(0);
+
+        expect(secondCell).toBeSelectedIn(this.$table);
+      });
+    });
+
     function itShouldBehaveNormally() {
       it("sets the focus to the first cell", function(){
         var firstCell = $('#input-1-1').get(0);
