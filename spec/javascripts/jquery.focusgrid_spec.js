@@ -130,10 +130,10 @@ describe("Focusgrid", function() {
         expect(fourthCell).toBeSelectedIn(this.$table);
       });
 
-      xit("Honors colspans (up and down)", function(){
+      it("Honors colspans (up and down)", function(){
         var secondCell = $('#input-2-2').get(0);
 
-        this.$table.focusgrid({debug : true});
+        this.$table.focusgrid();
         pressKey(this.$table, KEYS.RIGHT_ARROW);
         pressKey(this.$table, KEYS.RIGHT_ARROW);
         pressKey(this.$table, KEYS.DOWN_ARROW);
@@ -142,10 +142,52 @@ describe("Focusgrid", function() {
         expect(secondCell).toBeSelectedIn(this.$table); 
       });
 
-      xit("Honors rowspans (right to left)", function() {});
-      xit("Honors rowspans (up and down)", function() {});
-      xit("Skips cells without inputs (left to right)", function() {});
-      xit("Skips cells without inputs (up and down)", function() {});
+      it("Honors rowspans (right to left)", function() {
+        var thirdCell = $('#input-1-3').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.LEFT_ARROW);
+        expect(thirdCell).toBeSelectedIn(this.$table);
+      });
+
+      it("Honors rowspans (up and down)", function() {
+        var fifthCell = $('#input-2-5').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        expect(fifthCell).toBeSelectedIn(this.$table);
+      });
+
+      it("Skips cells without inputs (left to right)", function() {
+        var fourthCell = $('#input-4-2').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        expect(fourthCell).toBeSelectedIn(this.$table);
+      });
+
+      it("Skips cells without inputs (up and down)", function() {
+        var bigCell = $('#input-2-3').get(0);
+
+        this.$table.focusgrid();
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        pressKey(this.$table, KEYS.UP_ARROW);
+        expect(bigCell).toBeSelectedIn(this.$table);
+      });
     });
 
     context("With a table with no starting input", function() {
@@ -167,6 +209,15 @@ describe("Focusgrid", function() {
 
         expect(secondCell).toBeSelectedIn(this.$table);
       });
+    });
+
+    context("With thead, tfoot, th", function() {
+      beforeEach(function() {
+        loadFixtures('/__root__/spec/fixtures/table_with_header.html');
+        this.$table = $('#table-with-header');
+      });
+
+      itShouldBehaveNormally();
     });
 
     function itShouldBehaveNormally() {

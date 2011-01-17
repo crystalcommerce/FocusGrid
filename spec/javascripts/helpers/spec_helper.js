@@ -28,6 +28,12 @@ beforeEach(function() {
   });
 });
 
+// Disable fixture caching
+var _oldLoadFixtures = loadFixtures;
+loadFixtures = function(l) {
+  _oldLoadFixtures(l + "?" + new Date());
+};
+
 // For debugging
 function ut() {
   loadFixtures('/__root__/spec/fixtures/uniform_table.html');
@@ -52,5 +58,6 @@ function et() {
 function nict() {
   loadFixtures('/__root__/spec/fixtures/no_initial_cell_table.html');
   $('#no-initial-cell-table').focusgrid({debug : true});
-  $('#no-initial-cell-table-expert').focusgrid({debug : true});
+  $('#no-initial-cell-table-expert').focusgrid({debug : true,
+                                                tabIndexStart: 600});
 }
