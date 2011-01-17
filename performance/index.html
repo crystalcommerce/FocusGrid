@@ -88,12 +88,14 @@
       // Example
       // addTest('My Test', function() {
       //   myTestCode();
-      // }
+      // });
 
       // ----------------------------- //
       // Below here executes the tests // 
       // ----------------------------- //
-      suite.on('cycle', function(bench) {
+      suite.on('teardown', function() {
+        $('#test-table').unFocusgrid();
+      }).on('cycle', function(bench) {
         console.log(String(bench));
       }).on('complete', function() {
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
