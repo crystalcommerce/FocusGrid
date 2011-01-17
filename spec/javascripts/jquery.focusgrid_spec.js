@@ -268,6 +268,13 @@ describe("Focusgrid", function() {
         expect(lastCell).toBeSelectedIn(this.$table);
       });
 
+      it("turns off autocomplete", function(){
+        this.$table.focusgrid();
+
+        var firstCellAutocomplete = $('#input-1-1').attr('autocomplete');
+        expect(firstCellAutocomplete).toEqual("off");
+      });
+
       describe("key bindings", function() {
         it("binds the right arrow key to move one cell right", function(){
           var secondCell = $('#input-2-1').get(0);
