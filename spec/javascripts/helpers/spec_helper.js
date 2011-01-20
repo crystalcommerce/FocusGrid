@@ -61,3 +61,7 @@ function nict() {
   $('#no-initial-cell-table-expert').focusgrid({debug : true,
                                                 tabIndexStart: 600});
 }
+function nt() {
+  loadFixtures('/__root__/spec/fixtures/nested_table.html');
+  $('#nested-table').focusgrid({debug : true});
+}

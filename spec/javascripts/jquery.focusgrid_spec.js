@@ -253,6 +253,55 @@ describe("Focusgrid", function() {
       itShouldBehaveNormally();
     });
 
+    context("A table with a nested table", function() {
+      beforeEach(function() {
+        loadFixtures('/__root__/spec/fixtures/nested_table.html');
+        this.$table = $('#nested-table');
+      });
+
+      itShouldBehaveNormally();
+
+      it("finds inputs that at the root level, ignoring those in nested tables", function() {
+        var secondCell = $('#input-1-3').get(0),
+            thirdCell  = $('#input-1-2').get(0);
+
+        this.$table.focusgrid({debug: true});
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+
+        expect(secondCell).toBeSelectedIn(this.$table);
+
+        pressKey(this.$table, KEYS.UP_ARROW);
+        expect(thirdCell).toBeSelectedIn(this.$table);
+      });
+
+      it("finds inputs nested within elements which are not tables", function() {
+        var secondCell = $('#input-1-4').get(0);
+
+        this.$table.focusgrid();
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+
+        expect(secondCell).toBeSelectedIn(this.$table);
+      });
+
+      it("finds elements nested within elements which also contain tables", function() {
+        var secondCell = $('#input-1-5').get(0);
+
+        this.$table.focusgrid();
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+
+        expect(secondCell).toBeSelectedIn(this.$table);
+      });
+    });
+
     function itShouldBehaveNormally() {
       it("sets the focus to the first cell", function(){
         var firstCell = $('#input-1-1').get(0);
