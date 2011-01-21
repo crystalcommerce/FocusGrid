@@ -265,7 +265,7 @@ describe("Focusgrid", function() {
         var secondCell = $('#input-1-3').get(0),
             thirdCell  = $('#input-1-2').get(0);
 
-        this.$table.focusgrid({debug: true});
+        this.$table.focusgrid();
 
         pressKey(this.$table, KEYS.DOWN_ARROW);
         pressKey(this.$table, KEYS.DOWN_ARROW);
@@ -302,11 +302,63 @@ describe("Focusgrid", function() {
       });
     });
 
-    function itShouldBehaveNormally() {
+    context("With grouping options", function() {
+      beforeEach(function() {
+        loadFixtures('/__root__/spec/fixtures/multigrid_table.html');
+        this.$table = $('#multigrid-table');
+      });
+
+      itShouldBehaveNormally({grouping: ['.primary-row', '.secondary-row']});
+
+      it("creates a sub-grid on other specified selectors", function() {
+        var firstCell  = $('#sinput-1-1').get(0),
+            secondCell = $('#sinput-1-2').get(0),
+            thirdCell  = $('#sinput-2-2').get(0);
+
+
+        this.$table.focusgrid({debug: true, grouping: ['.primary-row', '.secondary-row']});
+
+        firstCell.focus();
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        expect(thirdCell).toBeSelectedIn(this.$table);
+      });
+
+      it("accepts arbitrary jQuery selectors", function() {
+        var firstCell,
+            secondCell = $('#eoinput-1-3').get(0),
+            thirdCell  = $('#eoinput-2-3').get(0);
+
+        this.$table = $('#even-odd-table');
+
+        this.$table.focusgrid({grouping: [":even", ":odd"]});
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        expect(thirdCell).toBeSelectedIn(this.$table);
+
+        firstCell  = $('#eoinput-1-2').get(0),
+        secondCell = $('#eoinput-1-4').get(0),
+        thirdCell  = $('#eoinput-2-4').get(0);
+
+        firstCell.focus();
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+        pressKey(this.$table, KEYS.RIGHT_ARROW);
+        expect(thirdCell).toBeSelectedIn(this.$table);
+      });
+    });
+
+    function itShouldBehaveNormally(opts) {
       it("sets the focus to the first cell", function(){
         var firstCell = $('#input-1-1').get(0);
 
-        this.$table.focusgrid();
+        this.$table.focusgrid(opts || {});
         expect(firstCell).toBeSelectedIn(this.$table);
       });
 
@@ -318,7 +370,7 @@ describe("Focusgrid", function() {
       });
 
       it("turns off autocomplete", function(){
-        this.$table.focusgrid();
+        this.$table.focusgrid(opts || {});
 
         var firstCellAutocomplete = $('#input-1-1').attr('autocomplete');
         expect(firstCellAutocomplete).toEqual("off");
@@ -328,7 +380,7 @@ describe("Focusgrid", function() {
         it("binds the right arrow key to move one cell right", function(){
           var secondCell = $('#input-2-1').get(0);
 
-          this.$table.focusgrid();
+          this.$table.focusgrid(opts || {});
           pressKey(this.$table, KEYS.RIGHT_ARROW);
 
           expect(secondCell).toBeSelectedIn(this.$table);
@@ -337,7 +389,7 @@ describe("Focusgrid", function() {
         it("binds the left arrow key to move one cell left", function(){
           var firstCell = $('#input-1-1').get(0);
 
-          this.$table.focusgrid();
+          this.$table.focusgrid(opts || {});
           pressKey(this.$table, KEYS.RIGHT_ARROW);
           pressKey(this.$table, KEYS.LEFT_ARROW);
 
@@ -347,7 +399,7 @@ describe("Focusgrid", function() {
         it("binds the down arrow key to move one cell down", function(){
           var secondCell = $('#input-1-2').get(0);
 
-          this.$table.focusgrid();
+          this.$table.focusgrid(opts || {});
           pressKey(this.$table, KEYS.DOWN_ARROW);
 
           expect(secondCell).toBeSelectedIn(this.$table);
@@ -356,7 +408,7 @@ describe("Focusgrid", function() {
         it("binds the left arrow key to move one cell left", function(){
           var firstCell = $('#input-1-1').get(0);
 
-          this.$table.focusgrid();
+          this.$table.focusgrid(opts || {});
           pressKey(this.$table, KEYS.DOWN_ARROW);
           pressKey(this.$table, KEYS.UP_ARROW);
 
@@ -364,7 +416,7 @@ describe("Focusgrid", function() {
         });
 
         it("moves down with tab", function() {
-          this.$table.focusgrid();
+          this.$table.focusgrid(opts || {});
           var first  = parseInt($('#input-1-1').attr('tabindex'), 10);
           var second = parseInt($('#input-1-2').attr('tabindex'), 10);
 
@@ -372,7 +424,7 @@ describe("Focusgrid", function() {
         });
 
         it("doesn't break at table boundaries (right-to-left)", function() {
-          this.$table.focusgrid();
+          this.$table.focusgrid(opts || {});
           var firstCell  = $('#input-1-1').get(0);
           var secondCell = $('#input-2-1').get(0);
 
@@ -384,7 +436,7 @@ describe("Focusgrid", function() {
         });
 
         it("doesn't break at table boundaries (up-and-down)", function() {
-          this.$table.focusgrid();
+          this.$table.focusgrid(opts || {});
           var firstCell  = $('#input-1-1').get(0);
           var secondCell = $('#input-1-2').get(0);
 

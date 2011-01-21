@@ -22,6 +22,7 @@ function pressKey($table, keyCode) {
 beforeEach(function() {
   this.addMatchers({
     toBeSelectedIn: function($table) {
+      console.log("ON TABLE: " + $table.data('selectedCell').id + " ACTUAL " + this.actual.id + " DOC: " + document.activeElement.id);//MXDEBUG
       return ($table.data('selectedCell').id == this.actual.id) &&
         (document.activeElement.id == this.actual.id);
     }
@@ -64,4 +65,12 @@ function nict() {
 function nt() {
   loadFixtures('/__root__/spec/fixtures/nested_table.html');
   $('#nested-table').focusgrid({debug : true});
+}
+function mt() {
+  loadFixtures('/__root__/spec/fixtures/multigrid_table.html');
+
+  $('#multigrid-table').focusgrid({debug : true, grouping: ['.primary-row', '.secondary-row']});
+  $('#even-odd-table').focusgrid({debug : true, 
+                                  grouping: [':even', ':odd'],
+                                  tabIndexStart: 600});
 }
