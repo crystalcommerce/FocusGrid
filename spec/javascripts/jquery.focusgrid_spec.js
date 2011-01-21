@@ -316,7 +316,7 @@ describe("Focusgrid", function() {
             thirdCell  = $('#sinput-2-2').get(0);
 
 
-        this.$table.focusgrid({debug: true, grouping: ['.primary-row', '.secondary-row']});
+        this.$table.focusgrid({grouping: ['.primary-row', '.secondary-row']});
 
         firstCell.focus();
 
@@ -351,6 +351,18 @@ describe("Focusgrid", function() {
         expect(secondCell).toBeSelectedIn(this.$table);
         pressKey(this.$table, KEYS.RIGHT_ARROW);
         expect(thirdCell).toBeSelectedIn(this.$table);
+      });
+
+      it("resumes tabindex count in subsequent focusgrid groupings", function() {
+        this.$table.focusgrid({grouping: ['.primary-row', '.secondary-row']});
+        var lastPrimaryIndex = parseInt(this.$table
+                                            .find('tr.primary-row :text:last')
+                                            .attr('tabindex'), 10),
+        firstSecondaryIndex = parseInt(this.$table
+                                            .find('tr.secondary-row :text:first')
+                                            .attr('tabindex'), 10);
+
+        expect(firstSecondaryIndex).toEqual(lastPrimaryIndex + 1);
       });
     });
 
