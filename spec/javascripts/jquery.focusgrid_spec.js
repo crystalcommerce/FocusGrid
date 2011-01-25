@@ -310,6 +310,9 @@ describe("Focusgrid", function() {
 
       itShouldBehaveNormally({grouping: ['.primary-row', '.secondary-row']});
 
+      // Handle classes which don't even exist on the table
+      itShouldBehaveNormally({grouping: ['.primary-row', '.bogus-row']});
+
       it("creates a sub-grid on other specified selectors", function() {
         var firstCell  = $('#sinput-1-1').get(0),
             secondCell = $('#sinput-1-2').get(0),
