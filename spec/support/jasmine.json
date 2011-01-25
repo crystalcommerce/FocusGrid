@@ -1,6 +1,7 @@
 {
  "src_dir"     : "/public/javascript/",
  "spec_dir"    : "/spec/",
+ "helpers"     : ["/spec/jasmine-jquery.js", "/spec/SpecHelper.js"],
 
  "server":{
    "port":8124
