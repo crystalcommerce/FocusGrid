@@ -4,7 +4,7 @@
     LEFT_ARROW:  37,
     UP_ARROW:    38,
     RIGHT_ARROW: 39,
-    DOWN_ARROW:  40  
+    DOWN_ARROW:  40
   };
   var debugging = false;
 
@@ -59,7 +59,7 @@
     selector = selector || "";
     var matrix = [],
         firstCell = undefined,
-        row_selector = '> tr' + selector + ', > tbody > tr' + selector + 
+        row_selector = '> tr' + selector + ', > tbody > tr' + selector +
                        ', > thead > tr' + selector;
 
     debug('Setting up matrix for row selector ' + row_selector);
@@ -88,7 +88,7 @@
         }
 
         // Skip cells that have already been configured due to rowspans
-        while (matrix[r][c] !== undefined) { 
+        while (matrix[r][c] !== undefined) {
           c++;
         }
 
@@ -107,7 +107,8 @@
 
     // Keep track of the tabindex to carry over into subsequent groupings
     grid.options.tabIndexStart += grid.taboffset;
-    linkCells(matrix, grid);
+    // On unused groupings (ones that don't have existing inputs), skip linking
+    if (matrix.length > 0) linkCells(matrix, grid);
 
     if (!grid.activeCell) {
       grid.activeCell = firstCell;
