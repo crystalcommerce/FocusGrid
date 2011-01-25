@@ -19,12 +19,9 @@ task :build => %w[pkg/jquery.min.js pkg/jquery.focusgrid.min.js]
 
 namespace :build do
   directory 'pkg'
-  file 'pkg/jquery.min.js' => ['pkg', 'lib/jquery.min.js'] do
-    cp 'lib/jquery.min.js', 'pkg/jquery.min.js'
-  end
 
-  file 'pkg/jquery.focusgrid.js' => ['pkg', 'lib/jquery.focusgrid.js'] do
-    cp 'lib/jquery.focusgrid.js', 'pkg/jquery.focusgrid.js'
+  file 'pkg/jquery.focusgrid.js' => ['pkg', 'public/javascript/jquery.focusgrid.js'] do
+    cp 'public/javascript/jquery.focusgrid.js', 'pkg/jquery.focusgrid.js'
   end
 
   file 'pkg/jquery.focusgrid.min.js' => 'pkg/jquery.focusgrid.js' do

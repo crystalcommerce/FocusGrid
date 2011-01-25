@@ -8,7 +8,7 @@ var loadFixtures = function() {
 
 var setFixtures = function(html) {
   jasmine.getFixtures().set(html);
-}
+};
 
 var sandbox = function(attributes) {
   return jasmine.getFixtures().sandbox(attributes);
@@ -21,6 +21,7 @@ jasmine.getFixtures = function() {
 jasmine.Fixtures = function() {
   this.containerId = 'jasmine-fixtures';
   this.fixturesCache_ = {};
+  this.fixturesPath = 'fixtures';
 };
 
 jasmine.Fixtures.prototype.set = function(html) {
@@ -70,14 +71,16 @@ jasmine.Fixtures.prototype.getFixtureHtml_ = function(url) {
   return this.fixturesCache_[url];
 };
 
-jasmine.Fixtures.prototype.loadFixtureIntoCache_ = function(url) {
+jasmine.Fixtures.prototype.loadFixtureIntoCache_ = function(relativeUrl) {
   var self = this;
+  var url = this.fixturesPath.match('/$') ? this.fixturesPath + relativeUrl : this.fixturesPath + '/' + relativeUrl;
   $.ajax({
     async: false, // must be synchronous to guarantee that no tests are run before fixture is loaded
+    cache: false,
     dataType: 'html',
     url: url,
     success: function(data) {
-      self.fixturesCache_[url] = data;
+      self.fixturesCache_[relativeUrl] = data;
     }
   });
 };
@@ -96,6 +99,8 @@ jasmine.JQuery.browserTagCaseIndependentHtml = function(html) {
 jasmine.JQuery.elementToString = function(element) {
   return $('<div />').append(element.clone()).html();
 };
+
+jasmine.JQuery.matchersClass = {};
 
 
 (function(){
@@ -169,11 +174,9 @@ jasmine.JQuery.elementToString = function(element) {
   };
 
   var bindMatcher = function(methodName) {
-    var matchersClassProto = jasmine.getEnv().matchersClass.prototype;
-    
-    var builtInMatcher = matchersClassProto[methodName];
+    var builtInMatcher = jasmine.Matchers.prototype[methodName];
 
-    matchersClassProto[methodName] = function() {
+    jasmine.JQuery.matchersClass[methodName] = function() {
       if (this.actual instanceof jQuery) {
         var result = jQueryMatchers[methodName].apply(this, arguments);
         this.actual = jasmine.JQuery.elementToString(this.actual);
@@ -193,6 +196,9 @@ jasmine.JQuery.elementToString = function(element) {
   }
 })();
 
+beforeEach(function() {
+  this.addMatchers(jasmine.JQuery.matchersClass);
+});
 
 afterEach(function() {
   jasmine.getFixtures().cleanUp();

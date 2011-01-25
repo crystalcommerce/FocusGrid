@@ -3,7 +3,7 @@ describe("Focusgrid", function() {
 
     context("With a uniform table", function() {
       beforeEach(function() {
-        loadFixtures('/__root__/spec/fixtures/uniform_table.html');
+        loadFixtures('uniform_table.html');
         this.$table = $('#uniform-table');
       });
 
@@ -12,7 +12,7 @@ describe("Focusgrid", function() {
 
     context("With a table with colspans", function() {
       beforeEach(function(){
-        loadFixtures('/__root__/spec/fixtures/colspan_table.html');
+        loadFixtures('colspan_table.html');
         this.$table = $('#colspan-table');
       });
 
@@ -67,7 +67,7 @@ describe("Focusgrid", function() {
 
     context("With a table with rowspans", function() {
       beforeEach(function(){
-        loadFixtures('/__root__/spec/fixtures/rowspan_table.html');
+        loadFixtures('rowspan_table.html');
         this.$table = $('#rowspan-table');
       });
 
@@ -104,7 +104,7 @@ describe("Focusgrid", function() {
 
     context("With a table with empty cells", function() {
       beforeEach(function(){
-        loadFixtures('/__root__/spec/fixtures/empty_cell_table.html');
+        loadFixtures('empty_cell_table.html');
         this.$table = $('#empty-cell-table');
       });
 
@@ -133,7 +133,7 @@ describe("Focusgrid", function() {
 
     context("With a table with all the weirdness", function() {
       beforeEach(function(){
-        loadFixtures('/__root__/spec/fixtures/evil_table.html');
+        loadFixtures('evil_table.html');
         this.$table = $('#evil-table');
       });
 
@@ -213,7 +213,7 @@ describe("Focusgrid", function() {
 
     context("With a table with no starting input", function() {
       beforeEach(function() {
-        loadFixtures('/__root__/spec/fixtures/no_initial_cell_table.html');
+        loadFixtures('no_initial_cell_table.html');
       });
 
       it("selects the first input on the first row that has one", function() {
@@ -234,7 +234,7 @@ describe("Focusgrid", function() {
 
     context("With thead, tfoot, th", function() {
       beforeEach(function() {
-        loadFixtures('/__root__/spec/fixtures/table_with_header.html');
+        loadFixtures('table_with_header.html');
         this.$table = $('#table-with-header');
       });
 
@@ -243,7 +243,7 @@ describe("Focusgrid", function() {
 
     context("After being cleared and rebuild", function() {
       beforeEach(function() {
-        loadFixtures('/__root__/spec/fixtures/uniform_table.html');
+        loadFixtures('uniform_table.html');
         this.$table = $('#uniform-table');
 
         this.$table.focusgrid();
@@ -255,7 +255,7 @@ describe("Focusgrid", function() {
 
     context("A table with a nested table", function() {
       beforeEach(function() {
-        loadFixtures('/__root__/spec/fixtures/nested_table.html');
+        loadFixtures('nested_table.html');
         this.$table = $('#nested-table');
       });
 
@@ -304,7 +304,7 @@ describe("Focusgrid", function() {
 
     context("With grouping options", function() {
       beforeEach(function() {
-        loadFixtures('/__root__/spec/fixtures/multigrid_table.html');
+        loadFixtures('multigrid_table.html');
         this.$table = $('#multigrid-table');
       });
 

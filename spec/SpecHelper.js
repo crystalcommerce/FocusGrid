@@ -22,7 +22,6 @@ function pressKey($table, keyCode) {
 beforeEach(function() {
   this.addMatchers({
     toBeSelectedIn: function($table) {
-      console.log("ON TABLE: " + $table.data('selectedCell').id + " ACTUAL " + this.actual.id + " DOC: " + document.activeElement.id);//MXDEBUG
       return ($table.data('selectedCell').id == this.actual.id) &&
         (document.activeElement.id == this.actual.id);
     }
@@ -37,37 +36,37 @@ loadFixtures = function(l) {
 
 // For debugging
 function ut() {
-  loadFixtures('/__root__/spec/fixtures/uniform_table.html');
+  loadFixtures('uniform_table.html');
   $('#uniform-table').focusgrid({debug : true});
 }
 function ct() {
-  loadFixtures('/__root__/spec/fixtures/colspan_table.html');
+  loadFixtures('colspan_table.html');
   $('#colspan-table').focusgrid({debug : true});
 }
 function rt() {
-  loadFixtures('/__root__/spec/fixtures/rowspan_table.html');
+  loadFixtures('rowspan_table.html');
   $('#rowspan-table').focusgrid({debug : true});
 }
 function ect() {
-  loadFixtures('/__root__/spec/fixtures/empty_cell_table.html');
+  loadFixtures('empty_cell_table.html');
   $('#empty-cell-table').focusgrid({debug : true});
 }
 function et() {
-  loadFixtures('/__root__/spec/fixtures/evil_table.html');
+  loadFixtures('evil_table.html');
   $('#evil-table').focusgrid({debug : true});
 }
 function nict() {
-  loadFixtures('/__root__/spec/fixtures/no_initial_cell_table.html');
+  loadFixtures('no_initial_cell_table.html');
   $('#no-initial-cell-table').focusgrid({debug : true});
   $('#no-initial-cell-table-expert').focusgrid({debug : true,
                                                 tabIndexStart: 600});
 }
 function nt() {
-  loadFixtures('/__root__/spec/fixtures/nested_table.html');
+  loadFixtures('nested_table.html');
   $('#nested-table').focusgrid({debug : true});
 }
 function mt() {
-  loadFixtures('/__root__/spec/fixtures/multigrid_table.html');
+  loadFixtures('multigrid_table.html');
 
   $('#multigrid-table').focusgrid({debug : true, grouping: ['.primary-row', '.secondary-row']});
   $('#even-odd-table').focusgrid({debug : true, 
