@@ -21,7 +21,7 @@
       $(this).data('selectedCell', grid.activeCell.input);
       grid.activeCell.input.focus();
     });
-    
+
     return $(this);
   };
 
@@ -36,6 +36,13 @@
     });
 
     return $(this);
+  };
+
+  // Reconfigure the focusgrid, preserving the focus
+  $.fn.resetFocusgrid = function(options) {
+    if (!options) options = {};
+    $.extend(options, {focus: $(this).data('selectedCell')});
+    return $(this).clearFocusgrid().focusgrid(options);
   };
 
   // Private functions

@@ -253,6 +253,24 @@ describe("Focusgrid", function() {
       itShouldBehaveNormally();
     });
 
+    context("After being reset", function() {
+      beforeEach(function() {
+        loadFixtures('uniform_table.html');
+        this.$table = $('#uniform-table');
+
+        this.$table.focusgrid();
+      });
+
+      it("preserves the focus", function() {
+        var secondCell = $('#input-1-2').get(0);
+
+        pressKey(this.$table, KEYS.DOWN_ARROW);
+        expect(secondCell).toBeSelectedIn(this.$table);
+        this.$table.resetFocusgrid();
+        expect(secondCell).toBeSelectedIn(this.$table);
+      });
+    });
+
     context("A table with a nested table", function() {
       beforeEach(function() {
         loadFixtures('nested_table.html');
