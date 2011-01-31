@@ -2,14 +2,6 @@ require 'rake'
 require 'bundler'
 Bundler.require :rake
 
-namespace :spec do
-  desc "Set up Jasmine"
-  task :init do
-    sh "jasmine init"
-  end
-end
-load "jasmine/tasks/jasmine.rake"
-
 task :clean do
   sh "rm -rf pkg"
 end
