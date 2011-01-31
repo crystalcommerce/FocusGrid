@@ -318,5 +318,5 @@
     grouping: [null]
   };
 
-  $.fn.focusgrid.version = "0.2.0";
+  $.fn.focusgrid.version = "0.3.0";
 })(jQuery);
