@@ -5,8 +5,9 @@
     UP_ARROW:    38,
     RIGHT_ARROW: 39,
     DOWN_ARROW:  40
-  };
-  var debugging = false;
+  },
+  debugging = false,
+  base_selector = 'input[type=text],input[type=number]';
 
   $.fn.focusgrid = function(options) {
     var opts = $.extend($.fn.focusgrid.defaults, options);
@@ -28,7 +29,7 @@
   $.fn.clearFocusgrid = function() {
     $(this).each(function() {
       $(this).unbind('keydown');
-      $(this).find(':text').each(function() {
+      $(this).find(base_selector).each(function() {
         debug("Clearing: " + this.id);
         $(this).unbind('focus').unbind('blur');
       });
@@ -78,10 +79,13 @@
       }
 
       var c = 0;
-      $(tr).find('> td, > th').each(function() {
-        // This selector first finds the first text field which isn't nested
+      // This selector first finds the first text field which isn't nested
+      var i_selector = $(base_selector.split(',')).map(function(s) {
+        return this + ':not(table table ' + this + '):first';
+      }).toArray().join(',');
+      $(tr).find('> td, > th').each(function(x) {
         var cell = {
-          input  : $(this).find(':not(table table :text):text:first').get(0),
+          input  : $(this).find(i_selector).get(0),
           tabSet : false
         };
 
@@ -240,6 +244,8 @@
 
   function bindGridListener(grid) {
     grid.table.keydown(function(e){
+      // Keyup/keydown does weird things on some input types like number
+      e.preventDefault();
       var code = e.keyCode || e.which;
       switch(code) {
         case KEYS.RIGHT_ARROW:
