@@ -245,8 +245,10 @@
   function bindGridListener(grid) {
     grid.table.keydown(function(e){
       // Keyup/keydown does weird things on some input types like number
-      e.preventDefault();
       var code = e.keyCode || e.which;
+      if ([KEYS.UP_ARROW, KEYS.DOWN_ARROW].indexOf(code) > -1) {
+        e.preventDefault();
+      }
       switch(code) {
         case KEYS.RIGHT_ARROW:
           moveRight(grid);
@@ -324,5 +326,5 @@
     grouping: [null]
   };
 
-  $.fn.focusgrid.version = "0.3.0";
+  $.fn.focusgrid.version = "0.3.2";
 })(jQuery);
